@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>尝试跨平台（包含手机上）运行js</title>
+<script>
+	function displayDate(){
+	document.getElementById("demo111").innerHTML=Date();
+	demo112.innerHTML=demo111.innerHTML;
+	}
+	function displayDate02(){
+	document.getElementById("demo112").innerHTML="哈哈哈,你是傻瓜叫，让你点什么就点什么";
+	}
+
+</script>
+</head>
+<body>
+
+<h1>我的第一个 JavaScript 程序</h1>
+<p id="demo112">我是小弟，跟前下面的变化↓↓↓↓↓</p>
+<br>
+<p id="demo111">★★为何变化的是我？☆★</p>
+
+<button type="button" onclick="displayDate()">显示日期</button>
+
+<!-- 　这个是单独改变上面的显示 -->
+<br>
+<div style="width:80px; height: 50px; background-color: pink;"></div>
+	<button type="button" onclick="displayDate02()">点这个来改变第1行</button>
+
+<a href="https://literal.club/book/unflattening-og0yv" target="_blank" rel="noreferrer" class="cursor-pointer rounded-xl bg-slate-50 p-8 lg:p-16 group hover:bg-slate-700 transition-background duration-[0.5s] shadow-md">
+    <div class="flex h-full gap-8 items-center lg:justify-center lg:items-center lg:gap-[0] book-perspective">
+        <div class="text-left z-10 lg:absolute lg:top-[-25px] lg:left-[-24px] lg:right-[-24px] lg:opacity-0 lg:-translate-y-4 transition-all duration-500 ease-in-out lg:group-hover:opacity-100 lg:group-hover:translate-y-[0]">
+            <h3 class="my-0 text-lg font-bold leading-[1.2] text-slate-700 group-hover:text-gray-50 lg:text-gray-50">书名叫：Unflattening</h3>
+            <p class="text-base mt-1 text-orange-400 lg:text-orange-400 lg:text-base">第二行小字</p>
+        </div>
+        
+        	<div class="relative transition-transform duration-[0.5s] ease-in-out transform-three-d order-[-1] w-12 shrink-0 lg:group-hover:book-rotate lg:w-1/2 lg:order-1 xl:w-full after:hidden lg:after:block after:content-[&quot;&quot;] after:book-stripes after:bg-grey-100 after:w-[calc(100%+0.5px)] after:absolute after:left-0 after:rounded-l-md after:border-y-[3px] after:border-l-[4px] after:border-slate-200 after:book-bottom before:hidden lg:before:block before:content-[&quot;&quot;] before:book-stripes-right before:bg-white before:h-[calc(100%+0.5px)] before:absolute before:-right-[0] before-top-0 before:border-x-[3px] before:border-x-slate-200 before:border-t-[3px] before:border-t-grey-200 before:book-right" style="--book-height: 14px;">
+        	<img src="https://assets.literal.club/2/ckpcz24aj969211ib2kwrspvcl.jpg" alt="东西东西东西" class="rounded-[3px] lg:group-hover:rounded-l-lg lg:group-hover:rounded-r-none transition-radius duration-300 ease-in-out w-full">
+        	</div>
+
+        <div class="hidden absolute font-bold text-gray-300 text-sm bottom-[-24px] left-[-24px] right-[-24px] opacity-0 translate-y-4 transition-[opacity,transform] duration-500 ease-in-out group-hover:opacity-100 group-hover:translate-y-[0] lg:block">
+                <span class="inline-flex items-center mr-1 inline-flex items-center cursor-pointer relative underline decoration-dotted decoration-blue underline-offset-[6px] decoration-2 hover:text-gray-50">书名叫什么？？
+                    <img loading="lazy" width="12" height="12" decoding="async" data-nimg="1" class=" h-2 w-2 ml-[6px] fill-black dark:fill-blue" style="color:transparent" src="https://www.qzq.at/books/_next/static/media/arrowUpRight.bed80c3a.svg">
+                </span>
+    </div>
+    </div>
+</a>
+
+
+</body>
+</html>
