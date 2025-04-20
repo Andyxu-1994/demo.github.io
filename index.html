@@ -1,46 +1,184 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<title>尝试跨平台（包含手机上）运行js</title>
-<script>
-	function displayDate(){
-	document.getElementById("demo111").innerHTML=Date();
-	demo112.innerHTML=demo111.innerHTML;
-	}
-	function displayDate02(){
-	document.getElementById("demo112").innerHTML="哈哈哈,你是傻瓜叫，让你点什么就点什么";
-	}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模拟更多翻书（镜像修复版）★★-25-4-19</title>
+    <style>
+        * {margin: 0; padding: 0; box-sizing: border-box;}
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* 修改背景为木板纹路 */
+            background: url('backGroundImgURL.jpg') repeat; 
+            /* background-size: cover; */
+            background-repeat: repeat;
+        }
+        .book-container {
+            width: 600px;
+            height: 850px;
+            perspective: 1500px; /* 核心3D透视 */
+            position: relative;
+        }
+        .page-wrapper {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* 真实翻页曲线 */
+        }
+        /* 单页样式 */
+        .single-page {
+            width: 620px;
+            height: 840px;
+            background-size: cover;
+            position: absolute;
+            left: 3px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            transform: rotateY(0deg) translateZ(1px);
+            z-index: 10;
+            /* 新增多层级投影系统 */
+            box-shadow: 
+                0 2px 4px rgba(0, 0, 0, 0.15),   /* 基础环境阴影 */
+                0 4px 8px rgba(0, 0, 0, 0.2),    /* 主投影层 */
+                0 6px 12px rgba(0, 0, 0, 0.25),   /* 深度增强层 */
+                0 8px 16px rgba(0, 0, 0, 0.1);    /* 扩散模糊层 */
+        }
+        /* 对页容器 */
+        .double-page {
+            width: 1240px;
+            height: 840px;
+            position: absolute;
+            left: -297px;
+            transform-style: preserve-3d;
+            z-index: 5;
+            
+            box-shadow: 
+                0 2px 4px rgba(0, 0, 0, 0.15),   /* 基础环境阴影 */
+                0 4px 8px rgba(0, 0, 0, 0.2),    /* 主投影层 */
+                0 6px 12px rgba(0, 0, 0, 0.25),   /* 深度增强层 */
+                0 8px 16px rgba(0, 0, 0, 0.1);    /* 扩散模糊层 */
 
-</script>
+            
+        }
+        /* 左页（正面显示，无镜像）📌 */
+        .page-left {
+            width: 620px;
+            height: 840px;
+            background-size: cover;
+            position: absolute;
+            left: 0;
+            transform: rotateY(0deg) scaleX(1); /* 关键：取消旋转，正面显示 */
+            backface-visibility: visible;
+        }
+        /* 右页（正面显示） */
+        .page-right {
+            width: 620px;
+            height: 840px;
+            background-size: cover;
+            /* position: absolute; */
+
+
+            position: relative;
+
+            left: 620px;
+            
+
+
+            transform: rotateY(0deg) scaleX(1);
+        }
+        /* 翻页动画 */
+        .flip-next {transform: rotateY(-180deg);} /* 向右翻页 */
+        .flip-prev {transform: rotateY(180deg);}  /* 向左翻页 */
+        /* 控制按钮 */
+        .controls {position: fixed; bottom: 30px; width: 100%; text-align: center; z-index: 100;}
+        .btn {padding: 12px 24px; font-size: 18px; background: #4a90e2; color: white; border: none; border-radius: 6px; margin: 0 15px; cursor: pointer; opacity: 0.8; transition: all 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.1);}
+        .btn:hover {opacity: 1; box-shadow: 0 4px 10px rgba(0,0,0,0.2);}
+        .btn:disabled {opacity: 0.5; cursor: not-allowed; box-shadow: none;}
+    </style>
 </head>
 <body>
-
-<h1>我的第2个JavaScript程序-24-9-15</h1>
-<p id="demo112">我是小弟，跟前下面的变化↓↓↓↓↓</p>
-<br>
-<p id="demo111">★★为何变化的是我？☆★</p>
-<p>★★今晚有强台风★</p>
-
-<button type="button" onclick="displayDate()">显示日期</button>
-
-<!-- 　这个是单独改变上面的显示 -->
-<br>
-<div style="width:80px; height: 50px; background-color: pink;"></div>
-	<button type="button" onclick="displayDate02()">点这个来改变第1行</button>
-
-<a href="https://literal.club/book/unflattening-og0yv" target="_blank" rel="noreferrer" class="cursor-pointer rounded-xl bg-slate-50 p-8 lg:p-16 group hover:bg-slate-700 transition-background duration-[0.5s] shadow-md">
-    <div class="flex h-full gap-8 items-center lg:justify-center lg:items-center lg:gap-[0] book-perspective">
-        <div>
-          <p class="text-base mt-1 text-orange-400 lg:text-orange-400 lg:text-base">第二行小字</p>
+    <div class="book-container" id="book">
+        <div class="page-wrapper" id="pages">
+            <!-- 初始单页 -->
+            <div class="single-page" style="background-image: url('001.jpg')"></div>
         </div>
-             	
-
     </div>
-</a>
-<br>	
-<br>	
-<h1>今天是2025-3-5， 新的WEB学习的开始...</h1>
-	
+    <div class="controls">
+        <button class="btn" id="prevBtn" onclick="handlePrev()">← 向前翻</button>
+        <button class="btn" id="nextBtn" onclick="handleNext()">向后翻 →</button>
+    </div>
+
+    <script>
+        // 修改为动态设置总页数
+        const PAGE_COUNT = 100; 
+        let currentLogicPage = 1; 
+        const pageWrapper = document.getElementById('pages');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        // 计算单页和对页的总数
+        const singlePageCount = PAGE_COUNT % 2 === 0 ? 0 : 1;
+        const doublePageCount = Math.floor((PAGE_COUNT - singlePageCount) / 2);
+
+        function updatePageStructure() {
+            let html = '';
+            const isSingle = currentLogicPage === 1 || currentLogicPage === doublePageCount + 1;
+
+            if (isSingle) {
+                // 单页模式
+                const pageNum = currentLogicPage === 1 ? 1 : PAGE_COUNT;
+                html = `<div class="single-page" style="background-image: url('${pageNum.toString().padStart(3, '0')}.jpg')"></div>`;
+            } else {
+                // 对页模式
+                const leftNum = (currentLogicPage - 1) * 2; 
+                const rightNum = leftNum + 1;
+                html = `
+                    <div class="double-page">
+                        <!-- 左页正常显示，无旋转 📌 -->
+                        <div class="page-left" style="background-image: url('${leftNum.toString().padStart(3, '0')}.jpg')"></div>
+                        <div class="page-right" style="background-image: url('${rightNum.toString().padStart(3, '0')}.jpg')"></div>
+                    </div>
+                `;
+            }
+
+            pageWrapper.innerHTML = html;
+            updateButtonState();
+        }
+
+        function updateButtonState() {
+            prevBtn.disabled = currentLogicPage === 1;
+            nextBtn.disabled = currentLogicPage === doublePageCount + singlePageCount;
+        }
+
+        function handleNext() {
+            if (currentLogicPage < doublePageCount + singlePageCount) {
+                const targetPage = currentLogicPage + 1;
+                pageWrapper.className = 'flip-next'; // 添加翻页类
+                setTimeout(() => {
+                    currentLogicPage = targetPage;
+                    pageWrapper.className = ''; // 移除类
+                    updatePageStructure();
+                }, 600);
+            }
+        }
+
+        function handlePrev() {
+            if (currentLogicPage > 1) {
+                const targetPage = currentLogicPage - 1;
+                pageWrapper.className = 'flip-prev'; // 添加翻页类
+                setTimeout(() => {
+                    currentLogicPage = targetPage;
+                    pageWrapper.className = ''; // 移除类
+                    updatePageStructure();
+                }, 600);
+            }
+        }
+
+        // 初始化
+        updatePageStructure();
+    </script>
 </body>
 </html>
